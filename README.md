@@ -1,75 +1,82 @@
-# React + TypeScript + Vite
+# 💾 Закрывающий тег — поздравительная открытка
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Интерактивная поздравительная открытка с днём рождения, свёрстанная по макету проекта «Закрывающий тег» (Яндекс Практикум) и **переписанная на React + TypeScript** в целях тренировки.
 
-Currently, two official plugins are available:
+> Изначально проект был выполнен на чистом HTML, CSS и JavaScript ([text](https://github.com/ZloyDoberman/zakrivayuschiy-teg-f)).  
+> Эта версия — осознанная переработка на современном стеке: компонентный подход, типизация, CSS-модули. Цель — закрепить навыки работы с React на уже знакомой вёрстке и потренироваться переносить статический проект в компонентную архитектуру.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Что умеет проект
 
-## React Compiler
+- **Лейблы поверх изображений** с обводкой текста (`text-stroke` + фоллбэк через `text-shadow`) и режимом смешивания `hard-light`.
+- **Модальное окно** «Вставьте дискету, чтобы продолжить», реализованное на нативном `<dialog>` с кастомным `::backdrop`.
+- **Анимация иконки сердца** по клику: последовательное перекрашивание `core → main-body → contour`, масштабирование группы `.heart` и вспышка искр `sparks`.
+- **Ховер-анимация кнопок**: псевдоэлемент `::before` «наезжает» слева направо, а текст и иконка перекрашиваются через `mix-blend-mode: difference`.
+- **Кастомные SVG-фильтры** для изображений: `hue-rotate`, `sepia`, `invert` и т.д.
+- **Сложный многослойный фон** из трёх градиентов (`repeating-linear-gradient` × 2 + линейный) с эффектом сетки и затемнения сверху вниз.
+- **Адаптивность**: резиновая вёрстка на `clamp()` + медиазапрос `@media`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Стек
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Слой        | Технологии                                         |
+| ----------- | -------------------------------------------------- |
+| UI          | React 19.3.1, TypeScript                           |
+| Сборка      | Vite                                               |
+| Стили       | CSS Modules, CSS-переменные, нативные `@keyframes` |
+| Иконки      | SVG-спрайт (`<symbol>`) + инлайновый SVG           |
+| Инструменты | ESLint, Prettier                                   |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Установка и запуск
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 1. Клонировать репозиторий
+git clone https://github.com/your-username/closing-tag-react.git
+cd closing-tag-react
 
-```
+# 2. Установить зависимости
+npm install
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+# 3. Запустить dev-сервер
+npm run dev
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🎯 Чему научился на этом проекте
 
+**Архитектура и React**
+
+- Переносить статичную вёрстку в компонентную архитектуру без потери визуала: разбивать монолитный `index.html` на переиспользуемые компоненты (`Card`, `Button`, `Heart`, `Header`) с чёткими пропсами.
+- Описывать данные декларативно: массив `CardMock: TCard[]` + `.map()` вместо копипаста разметки — правка одной карточки в одном файле.
+- Управлять состоянием через `useState`: лайк сердца (`isLike`) и открытие/закрытие модалки живут в React, а не в DOM-классах.
+- Работать с нативным `<dialog>` через `useRef<HTMLDialogElement>` и методы `showModal()` / `close()` — без глобальных `querySelector` и без сторонних библиотек.
+- Типизировать всё, что можно: пропсы компонентов (`TCard`, `TButton`, `TButtonHeart`), строгий union для фильтров (`"hue_rotate" | "sepia" | "invert" | "none"`).
+
+**CSS и стилизация**
+
+- Настраивать CSS Modules и понимать, чем вычисляемая нотация `styles[filter]` отличается от `styles.filter`: первая берёт класс по значению пропа, вторая ищет ключ `filter` в объекте модуля (и даёт `undefined`, если такого класса нет).
+- Управлять сложными CSS-анимациями: `@keyframes`, `transition` с задержками, `animation-fill-mode`, `transform-origin` — и понимать, почему `transition` должен стоять на целевом элементе, а не на `:hover`-правиле.
+- Делать «шторку» слева направо через `transform: scaleX(0) → scaleX(1)` с `transform-origin: left center`, а не через `scale()`, который растягивает обе оси.
+- Понимать `mix-blend-mode: difference` изнутри: почему для эффекта «перекрашивания» текст должен быть белым, а контейнер изолирован через `isolation: isolate`, и почему чёрный текст на белом фоне при `difference` становится невидимым.
+- Работать с `pointer-events` и `fill: none` в SVG: «дырявые» фигуры не ловят `:hover` по умолчанию — нужен `pointer-events: all` или прозрачный хитбокс.
+- Строить сложные многослойные фоны: два `repeating-linear-gradient` (сетка) + линейный градиент (затемнение) + `background-size: cover`.
+
+**SVG и иконки**
+
+- Собирать SVG-спрайт с `<symbol id="...">` и подключать его через `<use href="...">` — одна и та же дискета используется и в кнопке, и в модалке.
+- Понимать, что CSS со страницы **не проникает внутрь** внешнего SVG-файла: стилизовать можно только сам `<svg>` и `<use>`, а пути внутри спрайта должны быть на `currentColor` или без жёсткого `fill`.
+- Разбирать сложный SVG на слои (`core`, `main-body`, `contour`, `sparks`), объединять нужные в группу `<g class="heart">` и анимировать каждый слой отдельно — это основа покадровой анимации сердца.
+
+**Работа с макетом и проектом**
+
+- Скачивать и оптимизировать ассеты из Figma: фавиконы нужных размеров, SVG в спрайт, картинки — по папкам.
+- Подключать вариативный шрифт Inter с диапазоном весов через `font-variation-settings` и хранить толщины в CSS-переменных.
+- Строить резиновую вёрстку на `clamp()` и точечных медиазапросах (`@media (width <= 375px)`), а не на фиксированных пикселях.
+- Держать все цвета, шрифты и размеры в `index.css` — единый источник правды для темы.
+
+
+**Рефлексия**
+
+- Главное: переписывание уже готового проекта на другой стек — это не «сделать заново», а **увидеть свой код другими глазами**. То, что на ваниле было императивным «возьми элемент и переключи класс», в React становится декларативным «опиши, как состояние отражается в разметке». И это сильно меняет мышление.
 ```
