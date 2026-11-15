@@ -1,0 +1,101 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000;
+  font-family: var(--main-font);
+  background-color: #FFF;
+  inline-size: 100%;
+}
+
+.titleCard {
+  display: block;
+  padding: 4px 10px;
+  outline: 2px solid #000;
+  font-size: 18px;
+  font-variation-settings: "wght" var(--font-weight-bold-inter);
+}
+
+.cardContainerImg {
+  position: relative; 
+  display: block;
+  outline: 2px solid #000;
+  inline-size: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.cardImg {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  inline-size: 100%;
+  block-size: 100%; 
+}
+
+.label {
+  position: absolute; 
+  top: 25px; 
+  right: 25px; 
+  opacity: 0.5; 
+  font-family: var(--accent-font, Arial, sans-serif); 
+  font-size: 14px; 
+  text-shadow: 0 0 1px #fff; 
+  mix-blend-mode: hard-light; 
+}
+
+.cardBottom {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+  padding: 25px;
+}
+
+.quote {
+  font-style: italic;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 12px;
+}
+
+.hue_rotate {
+  filter: hue-rotate(90deg);
+}
+
+.sepia {
+  filter: sepia(80%);
+}
+
+.invert {
+  filter: invert(0.7);
+}
+
+.saturate {
+  filter: saturate(158%);
+}
+
+.grayscale {
+  filter: grayscale(0.8);
+}
+
+.blur {
+  filter: blur(0.5rem);
+}
+
+.none{}
+
+@media (width >= 425px) {
+  .card {
+    inline-size: var(--header-block-inline-size);
+  }
+}
+
+@supports ((text-stroke: 1px #fff) or (-webkit-text-stroke: 1px #fff)) { 
+  .label { 
+    text-shadow: none; 
+    -webkit-text-stroke: 1px #fff; 
+    text-stroke: 1px #fff; 
+  } 
+} 

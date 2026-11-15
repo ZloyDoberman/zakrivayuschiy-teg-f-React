@@ -1,0 +1,26 @@
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  border: 2px solid #000;
+  font-family: var(--accent-font);
+  background-color: #fff;
+  inline-size: 100%;
+  block-size: var(--header-block-block-size);
+}
+@media (width >= 425px) {
+  .headerContainer {
+    inline-size: var(--header-block-inline-size);
+  }
+}
+
+.headerTitle {
+  font-size: var(--header-title-font-size);
+}
+
+.headerSubTitle {
+  font-size: var(--header-sub-title-font-size);
+  text-transform: uppercase;
+}

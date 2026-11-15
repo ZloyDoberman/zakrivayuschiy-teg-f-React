@@ -1,0 +1,70 @@
+.button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  row-gap: 8px;
+  border: 2px solid #000;
+  font-family: var(--accent-font); 
+  font-size: 14px;
+  background-color: #fff;
+  transition: box-shadow 0.5s ease-in-out;
+  cursor: pointer;
+  inline-size: 130px; 
+  block-size: 38px;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000;
+  transition: inline-size 0.5s ease-in-out;
+  inline-size: 0;
+  block-size: 100%;
+}
+
+.button:hover::before {
+  inline-size: 100%;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  box-shadow: 2px 2px 0 #000;
+}
+
+.buttonText {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+.noLike {
+  padding: 12.5px;
+  inline-size: 100%;
+}
+
+.savedBtn {
+  inline-size: 335px;
+  block-size: 55px;
+}
+
+.svg {
+  position: relative;
+  z-index: 1;
+  inline-size: 28px;
+  aspect-ratio: 1 / 1;
+  mix-blend-mode: difference;
+}
+
+@media (width >= 425px) {
+  .button {
+    flex-direction: row;
+  }
+}
